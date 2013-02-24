@@ -381,7 +381,7 @@ namespace ServiceStack.Redis
 
     	public bool MSetNx(byte[][] keys, byte[][] values)
     	{
-			var keysAndValues = MergeCommandWithKeysAndValues(Commands.MSet, keys, values);
+			var keysAndValues = MergeCommandWithKeysAndValues(Commands.MSetNx, keys, values);
 
 			return SendExpectInt(keysAndValues) == Success;
 		}
@@ -568,7 +568,7 @@ namespace ServiceStack.Redis
 			if (newKeyname == null)
 				throw new ArgumentNullException("newKeyname");
 
-			return SendExpectInt(Commands.Rename, oldKeyname.ToUtf8Bytes(), newKeyname.ToUtf8Bytes()) == Success;
+			return SendExpectInt(Commands.RenameNx, oldKeyname.ToUtf8Bytes(), newKeyname.ToUtf8Bytes()) == Success;
 		}
 
     	public bool Expire(string key, int seconds)
